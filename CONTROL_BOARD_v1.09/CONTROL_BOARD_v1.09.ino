@@ -44,7 +44,8 @@
 
 */
 
-#define DISPLAY_FARENHEIT   // Set to display 'F instead of 'C.
+#define DISPLAY_FARENHEIT   /* Set to display 'F instead of 'C. */
+#define QUIET_OPERATION     /* Disable "OK" in CW on startup */
 
 // include 4x40 LED driver
 #include <LiquidCrystal440.h>
@@ -701,6 +702,7 @@ void loop() {
     lcd.setCursor( 13, 0 );
     lcd.print  ("SELFTEST = OK !");
 
+#ifndef QUIET_OPERATION
     // Morse code
     // Oscar
     digitalWrite(Buzzer, HIGH);
@@ -733,6 +735,7 @@ void loop() {
     delay (500);
 
     // end CW tune
+#endif /* QUIET_OPERATION */
 
     // NOW PA ready to go !
     digitalWrite(PTT_block, LOW);
