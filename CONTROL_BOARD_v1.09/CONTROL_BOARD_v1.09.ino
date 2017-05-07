@@ -44,6 +44,7 @@
 
 */
 
+#define DISPLAY_FARENHEIT   // Set to display 'F instead of 'C.
 
 // include 4x40 LED driver
 #include <LiquidCrystal440.h>
@@ -277,8 +278,13 @@ void printtemplate () {
 
   //lcd.setCursor( 26,2 );
   lcd.setCursor( 16, 2 );
-  lcd.print( "temp --");
+  lcd.print( "Temp --");
   lcd.print((char)223);  //degree symbol
+#ifdef DISPLAY_FARENHEIT
+  lcd.print('F');
+#else
+  lcd.print('C');
+#endif
   //lcd.print((char)165);
 
   lcd.setCursor( 0, 2 );
@@ -383,11 +389,13 @@ void setup() {
   lcd.clear();
 
   lcd.setCursor(5, 0 );
-  lcd.print ("       ANAN-8000DLE ");
+  lcd.print ("       ANAN-8000DLE");
+  lcd.setCursor(5, 1 );
+  lcd.print ("     Modified by WZ2Q");
   lcd.setCursor(5, 2 );
-  lcd.print ("       Apache-Labs           ");
+  lcd.print ("       Apache-Labs");
   lcd.setCursor(5, 3 );
-  lcd.print ("     04/2017  -  V1.09     ");
+  lcd.print ("   05/06/2017  -  V1.09w");
   delay (2000);
   lcd.clear();
   delay (500);
@@ -819,7 +827,13 @@ void loop() {
     {
       constrain (temp, 0, 99);
       if ((temp) < 10) lcd.print("0");
+#ifdef DISPLAY_FARENHEIT
+      lcd.print((int)((temp * 9.0)/ 5.0 + 32.0), DEC);
+#else
       lcd.print(temp, DEC);
+#endif
+
+
     }
     if (((temp >= 0) and (temp <=  5)) or (temp >= 65))     // FAULT check
     {
