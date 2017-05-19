@@ -729,13 +729,13 @@ void loop() {
     delay (80);
     digitalWrite(Buzzer, LOW);
     delay (80);
+#endif /* QUIET_OPERATION */
     digitalWrite(Buzzer, HIGH);
     delay (240);
     digitalWrite(Buzzer, LOW);
     delay (500);
 
     // end CW tune
-#endif /* QUIET_OPERATION */
 
     // NOW PA ready to go !
     digitalWrite(PTT_block, LOW);
